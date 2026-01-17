@@ -1,0 +1,28 @@
+= Issues
+
+== wasm
+
+----
+❯ python3 dev/emscripten/server.py ./pacmantest.html
+serving at port 8000
+127.0.0.1 - - [18/Jan/2026 17:07:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:08:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:08:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:08:15] "GET /pacmantest.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:08:15] "GET /pacmantest.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:08:15] "GET /pacmantest.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [18/Jan/2026 17:08:42] code 404, message File not found
+127.0.0.1 - - [18/Jan/2026 17:08:42] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+
+
+
+Uncaught RuntimeError: memory access out of bounds
+    at pacmantest.wasm:0x1405688
+    at pacmantest.wasm:0x140652d
+    at ___cxa_begin_catch (pacmantest.js:1:9710)
+    at pacmantest.wasm:0x5d805f
+    at pacmantest.wasm:0x1407198
+    at callMain (pacmantest.js:1:266115)
+    at doRun (pacmantest.js:1:266534)
+    at pacmantest.js:1:266675
+----

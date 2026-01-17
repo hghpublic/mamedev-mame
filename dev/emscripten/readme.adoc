@@ -1,0 +1,28 @@
+= emscripten
+:toc:
+:sectnums:
+
+== emscripen
+
+https://emscripten.org
+
+=== Download and install
+
+https://emscripten.org/docs/getting_started/downloads.html
+
+Verify installation::
++
+[source, shell]
+----
+emcc --version
+----
+
+=== cmake
+
+[source, shell]
+----
+emcmake cmake -S . -B build -GNinja \
+    -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT"/scripts/buildsystems/vcpkg.cmake \
+    -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${EMSCRIPTEN_TOOLCHAIN_FILE} \
+    -DVCPKG_TARGET_TRIPLET=wasm32-emscripten
+----
