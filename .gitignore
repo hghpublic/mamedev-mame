@@ -49,3 +49,10 @@ regtests/chdman/temp
 regtests/jedutil/output
 /CMakeLists.txt
 /samples
+
+
+# make
+/scripts/**/*.a
+
+!/readme.adoc
+!/dev
