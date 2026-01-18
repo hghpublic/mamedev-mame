@@ -1,0 +1,97 @@
+= mame
+:toc:
+:sectnums:
+ifndef::env-github[:icons: font]
+:note-caption: :paperclip:
+:important-caption: :exclamation:
+:warning-caption: :warning:
+
+[IMPORTANT]
+====
+The commit history of this branch is volatile. +
+Rebasing and force pushing happens at will. +
+The commits in this branch mostly collect changes with a narrow scope. +
+They rarely document code evolution. +
+The history may be rewritten without notice.
+====
+
+== mame
+
+https://www.mamedev.org/
+
+https://github.com/mamedev/mame/
+
+=== ROMs for Free Download
+
+https://www.mamedev.org/roms/
+
+== Compiling MAME
+
+https://docs.mamedev.org/initialsetup/compilingmame.html
+
+=== Debian and Ubuntu (including Raspberry Pi and ODROID devices)
+
+[source, shell]
+----
+sudo apt-get install git build-essential python3 libsdl2-dev libsdl2-ttf-dev libfontconfig-dev libpulse-dev qtbase5-dev qtbase5-dev-tools qtchooser qt5-qmake
+----
+
+=== Basic Build Instructions
+
+regenerate project files::
+`REGENIE=1`
+
+add various additional tools::
+`TOOLS=1`
+
+build an emulator for a subset of the systems supported by MAME::
++
+[source, shell]
+----
+make SUBTARGET=pacem SOURCES=src/mame/pacman/pacman.cpp REGENIE=1
+----
+
+Rebuilding MAME on a dual-core (e.g. i3 or laptop i5) machine::
++
+[source, shell]
+----
+make -j3
+----
+
+Rebuilding MAME for just the Pac-Man and Galaxian families of systems, with tools, on a quad-core (e.g. i5 or i7) machine::
++
+[source, shell]
+----
+make SUBTARGET=pacem SOURCES=src/mame/pacman,src/mame/galaxian TOOLS=1 REGENIE=1 -j5
+----
+
+Rebuilding MAME for just the Apple II systems, compiling up to six sources in parallel::
++
+[source, shell]
+----
+make SUBTARGET=appulator SOURCES=apple/apple2.cpp,apple/apple2e.cpp,apple/apple2gs.cpp REGENIE=1 -j6
+----
+
+
+=== Emscripten Javascript and HTML
+
+https://docs.mamedev.org/initialsetup/compilingmame.html#emscripten-javascript-and-html
+
+
+example::
++
+[source, shell]
+----
+emmake make SUBTARGET=pacmantest SOURCES=src/mame/pacman/pacman.cpp
+
+emmake make SUBTARGET=pacmantest SOURCES=src/mame/pacman/pacman.cpp > dev/logs/emmake-pacmantest.log 2>&1
+
+python3 dev/emscripten/server.py ./pacmantest.html
+----
+
+manually specify additional files if the make process misses something::
++
+[source, shell]
+----
+emmake make SUBTARGET=apple2e SOURCES=src/mame/apple/apple2e.cpp,src/devices/machine/applefdc.cpp
+----
